@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("postgresql://postgres:2HwjI3wnMsnBw4kRpbky@containers-us-west-87.railway.app:7854/railway")
+  url      = env("DATABASE_URL")
 }
 
 enum STATUS {
@@ -60,7 +60,7 @@ model Request {
 model Interview {
   id           Int        @id @default(autoincrement())
   conductedAt  DateTime
-  remarks      String
+  remarks      String?
   prospect     Prospect   @relation(fields: [prospectId], references: [id])
   prospectId   Int
   interviewers Employee[]
@@ -71,9 +71,9 @@ model Prospect {
   firstName   String
   lastName    String
   source      String
-  ctcValue    Int
-  offeredAt   DateTime
-  joinedAt    DateTime
+  ctcValue    Int?
+  offeredAt   DateTime?
+  joinedAt    DateTime?
   recruiter   Employee    @relation(fields: [recruiterId], references: [id])
   recruiterId Int
   request     Request     @relation(fields: [requestId], references: [id])
