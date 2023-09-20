@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("postgresql://postgres:2HwjI3wnMsnBw4kRpbky@containers-us-west-87.railway.app:7854/railway")
+}
+
+enum STATUS {
+  OPEN
+  OFFERED
+  JOINED
+  CANCELLED
+}
+
+model Employee {
+  id        Int         @id @default(autoincrement())
+  firstName String
+  lastName  String
+  empCode   String?     @unique
+  status    String
+  Request   Request[]
+  Prospect  Prospect[]
+  Interview Interview[]
+}
+
+model Customer {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Request Request[]
+}
+
+model Department {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  Request Request[]
+}
+
+model Request {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  position     String
+  level        String
+  budgetValue  Int?
+  budgetOpen   Boolean?
+  customer     Customer   @relation(fields: [customerId], references: [id])
+  customerId   Int
+  requester    Employee   @relation(fields: [requesterId], references: [id])
+  requesterId  Int
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId Int
+  status       STATUS     @default(OPEN)
+  Prospect     Prospect[]
+}
+
+model Interview {
+  id           Int        @id @default(autoincrement())
+  conductedAt  DateTime
+  remarks      String
+  prospect     Prospect   @relation(fields: [prospectId], references: [id])
+  prospectId   Int
+  interviewers Employee[]
+}
+
+model Prospect {
+  id          Int         @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  source      String
+  ctcValue    Int
+  offeredAt   DateTime
+  joinedAt    DateTime
+  recruiter   Employee    @relation(fields: [recruiterId], references: [id])
+  recruiterId Int
+  request     Request     @relation(fields: [requestId], references: [id])
+  requestId   Int
+  Interview   Interview[]
+}
