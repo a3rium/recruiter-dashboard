@@ -24,17 +24,74 @@ enum EMPLOYEE_STATUS {
   RESIGNED
 }
 
-model Employee {
-  id        Int              @id @default(autoincrement())
-  firstName String
-  lastName  String
-  empCode   String?          @unique
-  status    EMPLOYEE_STATUS?
-  Request   Request[]
-  Prospect  Prospect[]
-  Interview Interview[]
+enum OFFER_STATUS {
+  SENT
+  REJECTED
+  ACCEPTED
 }
 
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  employee      Employee?
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Employee {
+  id               Int              @id @default(autoincrement())
+  firstName        String
+  lastName         String
+  empCode          String?          @unique
+  status           EMPLOYEE_STATUS?
+  Request          Request[]
+  pastProspect     Prospect?        @relation("employee")
+  managedProspects Prospect[]       @relation("recruiter")
+  Interview        Interview[]
+  User             User?            @relation(fields: [userId], references: [id])
+  userId           String?          @unique
+  Offer            Offer[]
+}
+
+// investigate the need for multiple employee level models
 model Customer {
   id      Int       @id @default(autoincrement())
   name    String    @unique
@@ -48,35 +105,36 @@ model Department {
 }
 
 model Request {
-  id           Int             @id @default(autoincrement())
-  createdAt    DateTime        @default(now())
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
   position     String
   level        String
   budgetValue  Int?
   budgetOpen   Boolean?
-  customer     Customer        @relation(fields: [customerId], references: [id])
+  customer     Customer   @relation(fields: [customerId], references: [id])
   customerId   Int
-  requester    Employee        @relation(fields: [requesterId], references: [id])
+  requester    Employee   @relation(fields: [requesterId], references: [id])
   requesterId  Int
-  department   Department      @relation(fields: [departmentId], references: [id])
+  department   Department @relation(fields: [departmentId], references: [id])
   departmentId Int
-  status       PROSPECT_STATUS @default(OPEN)
   Prospect     Prospect[]
 }
 
 model Prospect {
-  id          Int         @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   firstName   String
   lastName    String
-  source      String
-  ctcValue    Int?
-  offeredAt   DateTime?
+  source      String?
   joinedAt    DateTime?
-  recruiter   Employee    @relation(fields: [recruiterId], references: [id])
+  recruiter   Employee        @relation("recruiter", fields: [recruiterId], references: [id])
   recruiterId Int
-  request     Request     @relation(fields: [requestId], references: [id])
+  request     Request         @relation(fields: [requestId], references: [id])
   requestId   Int
-  Interview   Interview[]
+  status      PROSPECT_STATUS @default(OPEN)
+  interview   Interview[]
+  employee    Employee?       @relation("employee", fields: [employeeId], references: [id])
+  employeeId  Int?            @unique
+  Offer       Offer[]
 }
 
 model Interview {
@@ -86,4 +144,16 @@ model Interview {
   prospect     Prospect   @relation(fields: [prospectId], references: [id])
   prospectId   Int
   interviewers Employee[]
+}
+
+model Offer {
+  id          Int          @id @default(autoincrement())
+  ctcValue    Int
+  status      OFFER_STATUS @default(SENT)
+  offeredAt   DateTime     @default(now())
+  respondedAt DateTime?
+  offeredBy   Employee     @relation(fields: [employeeId], references: [id])
+  employeeId  Int
+  offeredTo   Prospect     @relation(fields: [prospectId], references: [id])
+  prospectId  Int
 }
