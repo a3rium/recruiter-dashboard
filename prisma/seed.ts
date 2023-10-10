@@ -3,10 +3,9 @@ const prisma = new PrismaClient();
 
 async function main() {
   const user = await prisma.user.upsert({
-    where: { id: "clnjvafa50000z62gpsqlta5e" },
+    where: { id: "clnd1pa740000z6j8x36vddbi" },
     update: {},
     create: {
-      id: "clnjvafa50000z62gpsqlta5e",
       email: "asadkothawala97@gmail.com",
       name: "Asad Kothawala",
     },
@@ -15,17 +14,15 @@ async function main() {
     where: { id: 3 },
     update: {},
     create: {
-      id: 3,
       firstName: "Asad",
       lastName: "Kothawala",
-      userId: "clnjvafa50000z62gpsqlta5e",
+      userId: "clnd1pa740000z6j8x36vddbi",
     },
   });
   const employee1 = await prisma.employee.upsert({
     where: { id: 1 },
     update: {},
     create: {
-      id: 1,
       firstName: "Mohammed",
       lastName: "Sutarwala",
       status: "CURRENT",
@@ -36,7 +33,6 @@ async function main() {
     where: { id: 2 },
     update: {},
     create: {
-      id: 2,
       firstName: "Murtuza",
       lastName: "Sutarwala",
       status: "CURRENT",
@@ -46,7 +42,6 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      id: 1,
       name: "SBI Bank",
     },
   });
@@ -54,7 +49,6 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      id: 1,
       name: "Fresh Eng",
     },
   });
@@ -65,7 +59,6 @@ async function main() {
     },
     update: {},
     create: {
-      id: 1,
       level: "L1",
       position: "Trainee Engineering",
       budgetOpen: true,
@@ -80,7 +73,6 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      id: 1,
       firstName: "Rahul",
       lastName: "Vijan",
       requestId: 1,
@@ -91,7 +83,6 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      id: 1,
       conductedAt: new Date(0),
       prospectId: 1,
       interviewers: {
@@ -110,7 +101,6 @@ async function main() {
     where: { id: 1 },
     update: {},
     create: {
-      id: 1,
       ctcValue: 600000,
       prospectId: 1,
       employeeId: 1,
