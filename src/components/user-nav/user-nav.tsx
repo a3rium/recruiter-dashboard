@@ -13,13 +13,14 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import SignOutButton from "../buttons/sign-out-button";
 import { getInitials } from "@/lib/lib";
+import { authOptions } from "@/lib/auth";
 
 export async function UserNav() {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     // redirect
     // console.log("not signed in");
-    redirect("/signin");
+    redirect("/api/auth/signin");
   } else {
     // console.log("signed in");
   }

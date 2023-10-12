@@ -7,12 +7,12 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
-  if (!session || !session.user) {
-    // console.log("not signed in");
-  } else {
-    // console.log("signed in");
-  }
+  // const session = await getServerSession(authOptions);
+  // if (!session || !session.user) {
+  //   // console.log("not signed in");
+  // } else {
+  //   // console.log("signed in");
+  // }
 
   return (
     <section>

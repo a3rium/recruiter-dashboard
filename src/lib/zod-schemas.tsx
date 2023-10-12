@@ -13,7 +13,7 @@ export const addRequestFormSchema = z.object({
     })
     .min(1),
   budgetOpen: z.boolean().optional(),
-  budgetValue: z.number().optional(),
+  budgetValue: z.coerce.number().optional(),
   customerId: z.coerce
     .number({
       required_error: "Customer is required.",
@@ -40,11 +40,15 @@ export const editRequestFormSchema = z.object({
   createdAt: z.date().optional(),
   position: z.string().min(1).optional(),
   level: z.string().min(1).optional(),
-  budgetValue: z.number().int().optional(),
+  budgetValue: z.coerce.number().int().optional(),
   budgetOpen: z.boolean().optional(),
   customerId: z.number().int().optional(),
   requesterId: z.number().int().optional(),
   departmentId: z.number().int().optional(),
+});
+
+export const deleteRequestFormSchema = z.object({
+  id: z.number({ required_error: "ID is required." }).int(),
 });
 
 export const addProspectFormSchema = z.object({
@@ -83,6 +87,10 @@ export const editProspectFormSchema = z.object({
   employeeId: z.number().int().optional(),
 });
 
+export const deleteProspectFormSchema = z.object({
+  id: z.number({ required_error: "ID is required." }).int(),
+});
+
 export const addInterviewFormSchema = z.object({
   conductedAt: z
     .date()
@@ -108,8 +116,12 @@ export const editInterviewFormSchema = z.object({
   interviewers: z.number().int().array().optional(),
 });
 
+export const deleteInterviewFormSchema = z.object({
+  id: z.number({ required_error: "ID is required." }).int(),
+});
+
 export const addOfferFormSchema = z.object({
-  ctcValue: z
+  ctcValue: z.coerce
     .number({
       required_error: "CTC Value is required.",
     })
@@ -134,12 +146,16 @@ export const editOfferFormSchema = z.object({
       required_error: "ID is required.",
     })
     .int(),
-  ctcValue: z.number().int().optional(),
+  ctcValue: z.coerce.number().int().optional(),
   status: z.nativeEnum(OFFER_STATUS).optional(),
   offeredAt: z.date().optional(),
   respondedAt: z.date().optional(),
   employeeId: z.number().int().optional(),
   prospectId: z.number().int().optional(),
+});
+
+export const deleteOfferFormSchema = z.object({
+  id: z.number({ required_error: "ID is required." }).int(),
 });
 
 export const addCustomerFormSchema = z.object({
@@ -159,6 +175,10 @@ export const editCustomerFormSchema = z.object({
   name: z.string().min(1).optional(),
 });
 
+export const deleteCustomerFormSchema = z.object({
+  id: z.number({ required_error: "ID is required." }).int(),
+});
+
 export const addDepartmentFormSchema = z.object({
   name: z
     .string({
@@ -174,4 +194,8 @@ export const editDepartmentFormSchema = z.object({
     })
     .int(),
   name: z.string().min(1).optional(),
+});
+
+export const deleteDepartmentFormSchema = z.object({
+  id: z.number({ required_error: "ID is required." }).int(),
 });

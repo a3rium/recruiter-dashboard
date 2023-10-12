@@ -1,5 +1,5 @@
-import CustomerPanel from "@/components/panels/customer-panel";
-import DepartmentPanel from "@/components/panels/department-panel";
+import CustomerPanel from "@/components/routes/customers/customer-panel";
+import DepartmentPanel from "@/components/routes/departments/department-panel";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const AdminPage = () => {

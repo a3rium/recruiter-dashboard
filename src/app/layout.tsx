@@ -1,9 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import SessionProvider from "@/components/providers/session-provider";
+import SessionProvider from "@/components/routes/providers/session-provider";
 import { getServerSession } from "next-auth";
-import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ThemeProvider } from "@/components/routes/providers/theme-provider";
+import TrpcProvider from "@/app/_trpc/provider";
+import { authOptions } from "@/lib/auth";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +20,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
   if (!session || !session.user) {
     // redirect
     // console.log("not signed in");
@@ -28,16 +31,19 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <SessionProvider session={session}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </SessionProvider>
+        <TrpcProvider>
+          <SessionProvider session={session}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <main>{children}</main>
+              <Toaster />
+            </ThemeProvider>
+          </SessionProvider>
+        </TrpcProvider>
       </body>
     </html>
   );

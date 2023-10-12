@@ -1,18 +1,29 @@
 import React from "react";
-import { prospectColumns } from "../../../components/table-columns/prospects-table-columns";
-import { ProspectDataTable } from "../../../components/data-tables/prospects-data-table";
-import AddProspectDialog from "@/components/dialogs/add-prospect-dialog";
-import { getProspectTableData } from "@/lib/prisma-controller";
-import EditProspectDialog from "@/components/dialogs/edit-prospect-dialog";
+import { prospectColumns } from "../../../components/routes/prospects/prospects-table-columns";
+import { ProspectDataTable } from "../../../components/routes/prospects/prospects-data-table";
+import AddProspectDialog from "@/components/routes/prospects/add-prospect-dialog";
+import EditProspectDialog from "@/components/routes/prospects/edit-prospect-dialog";
+import { trpcServer } from "@/app/_trpc/caller";
+import { ProspectProvider } from "@/components/routes/prospects/prospect-provider";
+import { SelectedDialogProvider } from "@/components/routes/providers/selected-dialog-provider";
+import DeleteProspectDialog from "@/components/routes/prospects/delete-prospect-dialog";
 
 async function ProspectsPage() {
-  const data = await getProspectTableData();
+  const data = await trpcServer.prospects.getProspectTableData();
+
   return (
     <div className="container mx-auto py-10">
       <AddProspectDialog />
-      <EditProspectDialog>
-        <ProspectDataTable columns={prospectColumns} data={data} />
-      </EditProspectDialog>
+      <ProspectProvider>
+        <SelectedDialogProvider>
+          <ProspectDataTable
+            columns={prospectColumns}
+            data={data.prospectTableData}
+          />
+          <EditProspectDialog />
+          <DeleteProspectDialog />
+        </SelectedDialogProvider>
+      </ProspectProvider>
     </div>
   );
 }
