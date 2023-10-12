@@ -1,5 +1,15 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { trpcClient } from "@/app/_trpc/client";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -9,31 +19,21 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
-import * as z from "zod";
-import { addOfferFormSchema } from "@/lib/zod-schemas";
-import { Employee, Prospect, User } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { toast } from "@/components/ui/use-toast";
 import { cn, getProspectNames } from "@/lib/lib";
-import { Calendar } from "../../ui/calendar";
+import { addOfferFormSchema } from "@/lib/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Employee, Prospect } from "@prisma/client";
 import { format } from "date-fns";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { trpcClient } from "@/app/_trpc/client";
-import { toast } from "../../ui/use-toast";
-import { closeDialog } from "../../ui/dialog";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 type AddOfferFormProps = {
   employee: Employee;

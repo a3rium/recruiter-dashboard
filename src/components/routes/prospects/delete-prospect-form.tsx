@@ -1,16 +1,16 @@
 "use client";
 
 import { trpcClient } from "@/app/_trpc/client";
-import { useRouter } from "next/navigation";
-import { toast } from "../../ui/use-toast";
-import { closeDialog } from "../../ui/dialog";
-import { useProspectContext } from "./prospect-provider";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { closeDialog } from "@/components/ui/dialog";
+import { Form, FormField } from "@/components/ui/form";
+import { toast } from "@/components/ui/use-toast";
 import { deleteProspectFormSchema } from "@/lib/zod-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField } from "../../ui/form";
-import { Button } from "../../ui/button";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useProspectContext } from "./prospect-provider";
 
 const DeleteProspectForm = () => {
   const router = useRouter();

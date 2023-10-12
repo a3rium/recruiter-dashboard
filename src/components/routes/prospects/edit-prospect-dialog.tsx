@@ -1,4 +1,6 @@
 "use client";
+import { trpcClient } from "@/app/_trpc/client";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import {
   Dialog,
   DialogContent,
@@ -6,11 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import React, { ReactNode, useEffect, useState } from "react";
-import { ProspectProvider } from "./prospect-provider";
+import { ReactNode, useEffect, useState } from "react";
 import EditProspectForm from "./edit-prospect-form";
-import { trpcClient } from "@/app/_trpc/client";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
 
 type EditProspectDialogProps = {
   children: ReactNode;

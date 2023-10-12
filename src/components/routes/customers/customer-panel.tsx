@@ -1,12 +1,11 @@
-import React from "react";
-import { customerColumns } from "./customers-table-columns";
-import { CustomerDataTable } from "./customers-data-table";
-import AddCustomerDialog from "./add-customer-dialog";
-import EditCustomerDialog from "./edit-customer-dialog";
-import { CustomerProvider } from "./customer-provider";
-import { SelectedDialogProvider } from "../providers/selected-dialog-provider";
-import DeleteCustomerDialog from "./delete-customer-dialog";
 import { trpcServer } from "@/app/_trpc/caller";
+import { SelectedDialogProvider } from "@/components/providers/selected-dialog-provider";
+import AddCustomerDialog from "./add-customer-dialog";
+import { CustomerProvider } from "./customer-provider";
+import { CustomerDataTable } from "./customers-data-table";
+import { customerColumns } from "./customers-table-columns";
+import DeleteCustomerDialog from "./delete-customer-dialog";
+import EditCustomerDialog from "./edit-customer-dialog";
 
 const CustomerPanel = async () => {
   const data = await trpcServer.customers.getCustomerTableData();

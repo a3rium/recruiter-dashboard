@@ -1,7 +1,6 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-import React from "react";
-import SidebarNavButton from "../buttons/sidebar-nav-button";
+import SidebarNavButton from "@/components/buttons/sidebar-nav-button";
 
 const Sidebar = () => {
   return (

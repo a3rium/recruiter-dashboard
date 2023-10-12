@@ -1,7 +1,6 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,10 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Customer, Department } from "@prisma/client";
-import { DialogTrigger } from "../../ui/dialog";
+import { Department } from "@prisma/client";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 import { useDepartmentContext } from "./department-provider";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
 
 export const departmentColumns: ColumnDef<Department>[] = [
   {

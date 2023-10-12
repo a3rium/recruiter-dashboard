@@ -1,6 +1,6 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,10 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCustomerContext } from "./customer-provider";
-import { inferRouterOutputs } from "@trpc/server";
 import { AppRouter } from "@/server";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
+import { ColumnDef } from "@tanstack/react-table";
+import { inferRouterOutputs } from "@trpc/server";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { useCustomerContext } from "./customer-provider";
 
 export const customerColumns: ColumnDef<
   Awaited<

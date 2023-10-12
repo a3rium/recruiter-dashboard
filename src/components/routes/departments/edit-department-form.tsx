@@ -1,5 +1,5 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,16 +9,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import * as z from "zod";
-import { editDepartmentFormSchema } from "@/lib/zod-schemas";
-import { useForm } from "react-hook-form";
-import { useDepartmentContext } from "./department-provider";
-import { useRouter } from "next/navigation";
 import { trpcClient } from "@/app/_trpc/client";
-import { toast } from "../../ui/use-toast";
-import { closeDialog } from "../../ui/dialog";
+import { closeDialog } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/use-toast";
+import { editDepartmentFormSchema } from "@/lib/zod-schemas";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { useDepartmentContext } from "./department-provider";
 
 const EditDepartmentForm = () => {
   const router = useRouter();

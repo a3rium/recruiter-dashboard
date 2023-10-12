@@ -1,3 +1,4 @@
+import { trpcServer } from "@/app/_trpc/caller";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,9 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React from "react";
 import AddRequestForm from "./add-request-form";
-import { trpcServer } from "@/app/_trpc/caller";
 
 const AddRequestDialog = async () => {
   const departments = await trpcServer.helper.getDepartmentList();

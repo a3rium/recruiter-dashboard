@@ -1,5 +1,5 @@
+import { UserNav } from "@/components/user-nav/user-nav";
 import Image from "next/image";
-import { UserNav } from "../user-nav/user-nav";
 const Header = () => {
   return (
     <header className="ml-20 flex h-20 w-auto flex-row bg-secondary">

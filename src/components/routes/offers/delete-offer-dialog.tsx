@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
-import { Dialog } from "@radix-ui/react-dialog";
-import { RequestProvider } from "../requests/request-provider";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import {
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
+import { Dialog } from "@radix-ui/react-dialog";
+import { useEffect, useState } from "react";
 import DeleteOfferForm from "./delete-offer-form";
 
 const DeleteOfferDialog = () => {
@@ -31,17 +30,15 @@ const DeleteOfferDialog = () => {
         setCurrentSelectedDialog("");
       }}
     >
-      <RequestProvider>
-        <DialogContent className="sm:max-2-[425px]">
-          <DialogHeader>
-            <DialogTitle>View/Delete Request</DialogTitle>
-            <DialogDescription>
-              Are you sure you wish to delete this offer?
-            </DialogDescription>
-          </DialogHeader>
-          <DeleteOfferForm />
-        </DialogContent>
-      </RequestProvider>
+      <DialogContent className="sm:max-2-[425px]">
+        <DialogHeader>
+          <DialogTitle>View/Delete Request</DialogTitle>
+          <DialogDescription>
+            Are you sure you wish to delete this offer?
+          </DialogDescription>
+        </DialogHeader>
+        <DeleteOfferForm />
+      </DialogContent>
     </Dialog>
   );
 };

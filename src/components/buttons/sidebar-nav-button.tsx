@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -12,7 +13,6 @@ import {
   IoPersonSharp,
   IoSettingsSharp,
 } from "react-icons/io5";
-import { Button } from "../ui/button";
 
 type SidebarNavButtonProps = {
   title: string;

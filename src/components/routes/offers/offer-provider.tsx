@@ -1,7 +1,7 @@
 "use client";
 
 import { AppRouter } from "@/server";
-import { OFFER_STATUS, Offer, Request } from "@prisma/client";
+import { OFFER_STATUS } from "@prisma/client";
 import { inferRouterOutputs } from "@trpc/server";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 

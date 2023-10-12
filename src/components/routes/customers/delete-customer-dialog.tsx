@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
-import { Dialog } from "@radix-ui/react-dialog";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import {
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
+import { Dialog } from "@radix-ui/react-dialog";
+import { useEffect, useState } from "react";
 import DeleteCustomerForm from "./delete-customer-form";
 
 const DeleteCustomerDialog = () => {

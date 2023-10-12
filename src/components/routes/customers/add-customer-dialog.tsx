@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React from "react";
 import AddCustomerForm from "./add-customer-form";
 
 const AddCustomerDialog = async () => {

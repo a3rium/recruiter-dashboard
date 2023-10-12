@@ -1,12 +1,11 @@
-import React from "react";
-import { interviewColumns } from "../../../components/routes/interviews/interviews-table-columns";
-import { InterviewDataTable } from "../../../components/routes/interviews/interviews-data-table";
-import AddInterviewDialog from "@/components/routes/interviews/add-interview-dialog";
-import EditInterviewDialog from "@/components/routes/interviews/edit-interview-dialog";
 import { trpcServer } from "@/app/_trpc/caller";
-import { InterviewProvider } from "@/components/routes/interviews/interview-provider";
-import { SelectedDialogProvider } from "@/components/routes/providers/selected-dialog-provider";
+import { SelectedDialogProvider } from "@/components/providers/selected-dialog-provider";
+import AddInterviewDialog from "@/components/routes/interviews/add-interview-dialog";
 import DeleteInterviewDialog from "@/components/routes/interviews/delete-interview-dialog";
+import EditInterviewDialog from "@/components/routes/interviews/edit-interview-dialog";
+import { InterviewProvider } from "@/components/routes/interviews/interview-provider";
+import { InterviewDataTable } from "@/components/routes/interviews/interviews-data-table";
+import { interviewColumns } from "@/components/routes/interviews/interviews-table-columns";
 
 async function InterviewPage() {
   const data = await trpcServer.interviews.getInterviewTableData();

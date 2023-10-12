@@ -1,3 +1,4 @@
+import { trpcServer } from "@/app/_trpc/caller";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,9 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React from "react";
 import AddInterviewForm from "./add-interview-form";
-import { trpcServer } from "@/app/_trpc/caller";
 
 const AddInterviewDialog = async () => {
   const prospects = await trpcServer.helper.getProspectList();

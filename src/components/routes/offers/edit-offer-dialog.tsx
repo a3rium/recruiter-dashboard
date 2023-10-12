@@ -1,4 +1,6 @@
 "use client";
+import { trpcClient } from "@/app/_trpc/client";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import {
   Dialog,
   DialogContent,
@@ -6,10 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import EditOfferForm from "./edit-offer-form";
-import { trpcClient } from "@/app/_trpc/client";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
 import { useEffect, useState } from "react";
+import EditOfferForm from "./edit-offer-form";
 
 const EditOfferDialog = () => {
   const employee = trpcClient.helper.getCurrentEmployee.useQuery();

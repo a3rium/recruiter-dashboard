@@ -6,11 +6,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import { DepartmentProvider } from "./department-provider";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import EditDepartmentForm from "./edit-department-form";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
 
 const EditDepartmentDialog = () => {
   const { selectedDialog, setCurrentSelectedDialog } =

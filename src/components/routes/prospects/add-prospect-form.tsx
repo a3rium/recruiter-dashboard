@@ -1,14 +1,4 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -18,17 +8,27 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown } from "lucide-react";
 
-import * as z from "zod";
-import { addProspectFormSchema } from "@/lib/zod-schemas";
-import { Employee, Request, User } from "@prisma/client";
-import { useForm } from "react-hook-form";
 import { cn } from "@/lib/lib";
+import { addProspectFormSchema } from "@/lib/zod-schemas";
+import { Employee, Request } from "@prisma/client";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 type AddProspectFormProps = {
   employee: Employee;

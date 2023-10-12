@@ -1,4 +1,5 @@
 "use client";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import {
   Dialog,
   DialogContent,
@@ -7,7 +8,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
 import DeleteDepartmentForm from "./delete-department-form";
 
 const DeleteDepartmentDialog = () => {

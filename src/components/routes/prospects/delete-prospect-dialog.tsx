@@ -1,4 +1,6 @@
 "use client";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
+import { ProspectProvider } from "@/components/routes/prospects/prospect-provider";
 import {
   Dialog,
   DialogContent,
@@ -6,9 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
-import { ProspectProvider } from "@/components/routes/prospects/prospect-provider";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
+import { useEffect, useState } from "react";
 import DeleteProspectForm from "./delete-prospect-form";
 
 const DeleteProspectDialog = () => {

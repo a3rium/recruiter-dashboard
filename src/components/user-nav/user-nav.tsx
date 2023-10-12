@@ -1,3 +1,4 @@
+import SignOutButton from "@/components/buttons/sign-out-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,11 +10,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { authOptions } from "@/lib/auth";
+import { getInitials } from "@/lib/lib";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import SignOutButton from "../buttons/sign-out-button";
-import { getInitials } from "@/lib/lib";
-import { authOptions } from "@/lib/auth";
 
 export async function UserNav() {
   const session = await getServerSession(authOptions);

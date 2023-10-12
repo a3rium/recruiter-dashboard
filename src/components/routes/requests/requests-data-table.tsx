@@ -4,13 +4,13 @@ import * as React from "react";
 
 import {
   ColumnDef,
+  ColumnFiltersState,
+  SortingState,
   flexRender,
   getCoreRowModel,
-  ColumnFiltersState,
-  useReactTable,
-  SortingState,
-  getSortedRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 
 import {

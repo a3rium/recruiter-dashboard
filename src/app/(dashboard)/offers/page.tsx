@@ -1,12 +1,11 @@
-import React from "react";
-import { offerColumns } from "../../../components/routes/offers/offers-table-columns";
-import { OfferDataTable } from "@/components/routes/offers/offers-data-table";
-import AddOfferDialog from "@/components/routes/offers/add-offer-dialog";
-import EditOfferDialog from "@/components/routes/offers/edit-offer-dialog";
 import { trpcServer } from "@/app/_trpc/caller";
-import { OfferProvider } from "@/components/routes/offers/offer-provider";
-import { SelectedDialogProvider } from "@/components/routes/providers/selected-dialog-provider";
+import { SelectedDialogProvider } from "@/components/providers/selected-dialog-provider";
+import AddOfferDialog from "@/components/routes/offers/add-offer-dialog";
 import DeleteOfferDialog from "@/components/routes/offers/delete-offer-dialog";
+import EditOfferDialog from "@/components/routes/offers/edit-offer-dialog";
+import { OfferProvider } from "@/components/routes/offers/offer-provider";
+import { OfferDataTable } from "@/components/routes/offers/offers-data-table";
+import { offerColumns } from "@/components/routes/offers/offers-table-columns";
 
 async function ProspectsPage() {
   const data = await trpcServer.offers.getOfferTableData();

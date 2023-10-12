@@ -1,4 +1,7 @@
 "use client";
+import { trpcClient } from "@/app/_trpc/client";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
+import EditRequestForm from "@/components/routes/requests/edit-request-form";
 import {
   Dialog,
   DialogContent,
@@ -6,10 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
-import EditRequestForm from "@/components/routes/requests/edit-request-form";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
-import { trpcClient } from "@/app/_trpc/client";
+import { useEffect, useState } from "react";
 
 const EditRequestDialog = () => {
   const departments = trpcClient.helper.getDepartmentList.useQuery();

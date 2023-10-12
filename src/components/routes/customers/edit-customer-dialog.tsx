@@ -6,12 +6,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import React, { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-import { CustomerProvider } from "./customer-provider";
+import { useSelectedDialogContext } from "@/components/providers/selected-dialog-provider";
 import EditCustomerForm from "./edit-customer-form";
-import { trpcClient } from "@/app/_trpc/client";
-import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
 
 type EditInterviewDialogProps = {
   children: ReactNode;

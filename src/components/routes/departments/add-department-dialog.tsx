@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import React from "react";
 import AddDepartmentForm from "./add-department-form";
 
 const AddDepartmentDialog = async () => {

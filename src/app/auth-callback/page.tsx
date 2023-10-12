@@ -1,6 +1,6 @@
 "use client";
-import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { trpcClient } from "@/app/_trpc/client";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 
 const AuthCallbackPage = () => {
   const router = useRouter();

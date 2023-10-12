@@ -1,6 +1,5 @@
 import Header from "@/components/header/header";
 import Sidebar from "@/components/sidebar/sidebar";
-import { getServerSession } from "next-auth";
 
 export default async function DashboardLayout({
   children,

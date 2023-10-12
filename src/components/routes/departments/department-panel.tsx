@@ -1,14 +1,13 @@
-import React from "react";
-import { CustomerDataTable } from "../customers/customers-data-table";
-import { departmentColumns } from "./departments-table-columns";
+import { trpcServer } from "@/app/_trpc/caller";
+import { SelectedDialogProvider } from "@/components/providers/selected-dialog-provider";
 import AddDepartmentDialog from "./add-department-dialog";
-import EditDepartmentDialog from "./edit-department-dialog";
 import DeleteDepartmentDialog from "./delete-department-dialog";
 import { DepartmentProvider } from "./department-provider";
-import { SelectedDialogProvider } from "../providers/selected-dialog-provider";
-import { trpcServer } from "@/app/_trpc/caller";
+import { DepartmentDataTable } from "./departments-data-table";
+import { departmentColumns } from "./departments-table-columns";
+import EditDepartmentDialog from "./edit-department-dialog";
 
-const CustomerPanel = async () => {
+const DepartmentPanel = async () => {
   const data = await trpcServer.departments.getDepartmentTableData();
 
   return (
@@ -16,7 +15,7 @@ const CustomerPanel = async () => {
       <AddDepartmentDialog />
       <DepartmentProvider>
         <SelectedDialogProvider>
-          <CustomerDataTable
+          <DepartmentDataTable
             columns={departmentColumns}
             data={data.departmentTableData}
           />
@@ -28,4 +27,4 @@ const CustomerPanel = async () => {
   );
 };
 
-export default CustomerPanel;
+export default DepartmentPanel;

@@ -1,12 +1,11 @@
-import React from "react";
-import { prospectColumns } from "../../../components/routes/prospects/prospects-table-columns";
-import { ProspectDataTable } from "../../../components/routes/prospects/prospects-data-table";
-import AddProspectDialog from "@/components/routes/prospects/add-prospect-dialog";
-import EditProspectDialog from "@/components/routes/prospects/edit-prospect-dialog";
 import { trpcServer } from "@/app/_trpc/caller";
-import { ProspectProvider } from "@/components/routes/prospects/prospect-provider";
-import { SelectedDialogProvider } from "@/components/routes/providers/selected-dialog-provider";
+import { SelectedDialogProvider } from "@/components/providers/selected-dialog-provider";
+import AddProspectDialog from "@/components/routes/prospects/add-prospect-dialog";
 import DeleteProspectDialog from "@/components/routes/prospects/delete-prospect-dialog";
+import EditProspectDialog from "@/components/routes/prospects/edit-prospect-dialog";
+import { ProspectProvider } from "@/components/routes/prospects/prospect-provider";
+import { ProspectDataTable } from "@/components/routes/prospects/prospects-data-table";
+import { prospectColumns } from "@/components/routes/prospects/prospects-table-columns";
 
 async function ProspectsPage() {
   const data = await trpcServer.prospects.getProspectTableData();

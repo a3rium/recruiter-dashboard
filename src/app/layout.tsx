@@ -1,12 +1,12 @@
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import SessionProvider from "@/components/routes/providers/session-provider";
-import { getServerSession } from "next-auth";
-import { ThemeProvider } from "@/components/routes/providers/theme-provider";
 import TrpcProvider from "@/app/_trpc/provider";
-import { authOptions } from "@/lib/auth";
+import SessionProvider from "@/components/providers/session-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { authOptions } from "@/lib/auth";
+import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
