@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelectedDialogContext } from "../providers/selected-dialog-provider";
 import DeleteDepartmentForm from "./delete-department-form";
 
