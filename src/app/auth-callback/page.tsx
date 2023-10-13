@@ -7,7 +7,7 @@ const AuthCallbackPage = () => {
 
   const searchParams = useSearchParams();
   const origin = searchParams.get("origin");
-  const authResponse = trpcClient.authCallback.useQuery();
+  const authResponse = trpcClient.auth.authCallback.useQuery();
   if (authResponse.isSuccess) redirect(origin ? `/${origin}` : "/overview");
   if (authResponse.isError) redirect("/api/auth/signin");
 
