@@ -7,12 +7,18 @@ import superjson from "superjson";
 import { trpcClient } from "./client";
 
 const TrpcProvider = ({ children }: PropsWithChildren) => {
+  const getBaseUrl = () => {
+    if (typeof window !== "undefined") return "";
+    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+    return `http://localhost:${process.env.PORT ?? 3000}`;
+  };
+
   const [queryClientState] = useState(() => new QueryClient());
   const [trpcClientState] = useState(() =>
     trpcClient.createClient({
       links: [
         httpBatchLink({
-          url: "http://localhost:3000/api/trpc",
+          url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
       transformer: superjson,
