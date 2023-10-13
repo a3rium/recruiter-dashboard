@@ -22,9 +22,10 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, email }) {
       const userExists = await prisma.user.findUnique({
         where: {
-          email: user.email ?? undefined,
+          id: user.id,
         },
       });
+
       if (userExists) {
         return true;
       } else {
