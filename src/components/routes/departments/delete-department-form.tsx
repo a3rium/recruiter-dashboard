@@ -53,7 +53,7 @@ const DeleteDepartmentForm = () => {
           <Button type="button" onClick={() => closeDialog()} className="">
             Cancel
           </Button>
-          <Button type="submit" className="">
+          <Button type="submit" variant={"destructive"} className="">
             Delete
           </Button>
         </div>
