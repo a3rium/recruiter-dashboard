@@ -24,9 +24,13 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown } from "lucide-react";
 
+import { trpcClient } from "@/app/_trpc/client";
+import { closeDialog } from "@/components/ui/dialog";
+import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/lib";
 import { addProspectFormSchema } from "@/lib/zod-schemas";
 import { Employee, Request } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -36,6 +40,21 @@ type AddProspectFormProps = {
 };
 
 const AddProspectForm = ({ employee, requests }: AddProspectFormProps) => {
+  const router = useRouter();
+  const addProspectMutation = trpcClient.prospects.addProspect.useMutation({
+    onSuccess: () => {
+      router.refresh();
+      toast({ title: "Success! New prospect created." });
+      closeDialog();
+    },
+    onError: (error) => {
+      toast({
+        title: "Error! Something went wrong.",
+        description: error.message,
+      });
+    },
+  });
+
   const form = useForm<z.infer<typeof addProspectFormSchema>>({
     resolver: zodResolver(addProspectFormSchema),
     defaultValues: {
@@ -46,7 +65,7 @@ const AddProspectForm = ({ employee, requests }: AddProspectFormProps) => {
   });
 
   function onSubmit(values: z.infer<typeof addProspectFormSchema>) {
-    console.log(values);
+    addProspectMutation.mutate(values);
   }
 
   return (
