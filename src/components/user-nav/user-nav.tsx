@@ -29,7 +29,7 @@ export async function UserNav() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
-          <Avatar className="h-8 w-8">
+          <Avatar className="">
             <AvatarImage src="/avatars/01.png" alt="@shadcn" />
             <AvatarFallback>{getInitials(session.user.name)}</AvatarFallback>
           </Avatar>
