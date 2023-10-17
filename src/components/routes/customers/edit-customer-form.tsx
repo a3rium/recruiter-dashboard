@@ -15,17 +15,14 @@ import { trpcClient } from "@/app/_trpc/client";
 import { closeDialog } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { editCustomerFormSchema } from "@/lib/zod-schemas";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useCustomerContext } from "./customer-provider";
 
 const EditCustomerForm = () => {
-  const router = useRouter();
   const updateCustomerMutation =
     trpcClient.customers.updateCustomer.useMutation({
       onSuccess: () => {
-        router.refresh();
         toast({ title: "Success! Customer has been updated." });
         closeDialog();
       },

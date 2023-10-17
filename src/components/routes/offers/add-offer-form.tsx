@@ -1,4 +1,5 @@
 "use client";
+
 import { trpcClient } from "@/app/_trpc/client";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -31,7 +32,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Employee, Prospect } from "@prisma/client";
 import { format } from "date-fns";
 import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
@@ -41,10 +41,8 @@ type AddOfferFormProps = {
 };
 
 const AddOfferForm = ({ employee, prospects }: AddOfferFormProps) => {
-  const router = useRouter();
   const addOfferMutation = trpcClient.offers.addOffer.useMutation({
     onSuccess: () => {
-      router.refresh();
       toast({ title: "Success! New offer created." });
       closeDialog();
     },

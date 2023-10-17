@@ -7,17 +7,14 @@ import { Form, FormField } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
 import { deleteProspectFormSchema } from "@/lib/zod-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useProspectContext } from "./prospect-provider";
 
 const DeleteProspectForm = () => {
-  const router = useRouter();
   const deleteProspectMutation =
     trpcClient.prospects.deleteProspect.useMutation({
       onSuccess: () => {
-        router.refresh();
         toast({ title: "Success! Prospect has been deleted." });
         closeDialog();
       },

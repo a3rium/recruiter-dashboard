@@ -1,4 +1,7 @@
 "use client";
+
+import { trpcClient } from "@/app/_trpc/client";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -6,6 +9,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -14,26 +18,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown } from "lucide-react";
-import { useForm } from "react-hook-form";
-
-import { trpcClient } from "@/app/_trpc/client";
-import { Button } from "@/components/ui/button";
-import { closeDialog } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/lib";
 import { addRequestFormSchema } from "@/lib/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import type { Customer, Department, Employee } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 type AddRequestFormProps = {
@@ -47,11 +46,8 @@ const AddRequestForm = ({
   customers,
   departments,
 }: AddRequestFormProps) => {
-  const router = useRouter();
-
   const addRequestMutation = trpcClient.requests.addRequest.useMutation({
     onSuccess: () => {
-      router.refresh();
       toast({ title: "Success! New request created." });
       closeDialog();
     },

@@ -1,4 +1,7 @@
 "use client";
+
+import { trpcClient } from "@/app/_trpc/client";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -8,6 +11,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -21,24 +25,22 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-import { Check, CheckIcon, ChevronsUpDown, PlusCircleIcon } from "lucide-react";
-
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-
-import { trpcClient } from "@/app/_trpc/client";
-import { Badge } from "@/components/ui/badge";
-import { closeDialog } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { cn, getProspectNames } from "@/lib/lib";
 import { addInterviewFormSchema } from "@/lib/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Employee, Prospect } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { format } from "date-fns";
+import {
+  CalendarIcon,
+  Check,
+  CheckIcon,
+  ChevronsUpDown,
+  PlusCircleIcon,
+} from "lucide-react";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 type AddInterviewFormProps = {
@@ -47,10 +49,8 @@ type AddInterviewFormProps = {
 };
 
 const AddInterviewForm = ({ prospects, employees }: AddInterviewFormProps) => {
-  const router = useRouter();
   const addInterviewMutation = trpcClient.interviews.addInterview.useMutation({
     onSuccess: () => {
-      router.refresh();
       toast({ title: "Success! New interview created." });
       closeDialog();
     },

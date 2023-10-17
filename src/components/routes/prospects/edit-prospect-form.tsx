@@ -1,4 +1,6 @@
 "use client";
+
+import { trpcClient } from "@/app/_trpc/client";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -7,6 +9,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -21,16 +24,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Check, ChevronsUpDown } from "lucide-react";
-
-import { trpcClient } from "@/app/_trpc/client";
-import { closeDialog } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/lib";
 import { editProspectFormSchema } from "@/lib/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Employee, Request } from "@prisma/client";
-import { useRouter } from "next/navigation";
+import { Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useProspectContext } from "./prospect-provider";
@@ -41,11 +40,9 @@ type EditProspectFormProps = {
 };
 
 const EditProspectForm = ({ employee, requests }: EditProspectFormProps) => {
-  const router = useRouter();
   const updateProspectMutation =
     trpcClient.prospects.updateProspect.useMutation({
       onSuccess: () => {
-        router.refresh();
         toast({ title: "Success! Prospect has been updated." });
         closeDialog();
       },

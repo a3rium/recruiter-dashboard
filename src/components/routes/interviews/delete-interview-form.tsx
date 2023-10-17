@@ -1,4 +1,5 @@
 "use client";
+
 import { trpcClient } from "@/app/_trpc/client";
 import { Button } from "@/components/ui/button";
 import { closeDialog } from "@/components/ui/dialog";
@@ -6,17 +7,14 @@ import { Form, FormField } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
 import { deleteInterviewFormSchema } from "@/lib/zod-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useInterviewContext } from "./interview-provider";
 
 const DeleteInterviewForm = () => {
-  const router = useRouter();
   const deleteInterviewMutation =
     trpcClient.interviews.deleteInterview.useMutation({
       onSuccess: () => {
-        router.refresh();
         toast({ title: "Success! Interview has been deleted." });
         closeDialog();
       },

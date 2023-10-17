@@ -1,5 +1,7 @@
 "use client";
+import { trpcClient } from "@/app/_trpc/client";
 import { Button } from "@/components/ui/button";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -9,22 +11,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { trpcClient } from "@/app/_trpc/client";
-import { closeDialog } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { addDepartmentFormSchema } from "@/lib/zod-schemas";
-import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const AddDepartmentForm = () => {
-  const router = useRouter();
   const addDepartmentMutation =
     trpcClient.departments.addDepartment.useMutation({
       onSuccess: () => {
-        router.refresh();
         toast({ title: "Success! New department created." });
         closeDialog();
       },

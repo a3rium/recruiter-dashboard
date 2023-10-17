@@ -1,4 +1,5 @@
 "use client";
+
 import { trpcClient } from "@/app/_trpc/client";
 import { Button } from "@/components/ui/button";
 import { closeDialog } from "@/components/ui/dialog";
@@ -6,16 +7,13 @@ import { Form, FormField } from "@/components/ui/form";
 import { toast } from "@/components/ui/use-toast";
 import { deleteRequestFormSchema } from "@/lib/zod-schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRequestContext } from "./request-provider";
 
 const DeleteRequestForm = () => {
-  const router = useRouter();
   const deleteRequestMutation = trpcClient.requests.deleteRequest.useMutation({
     onSuccess: () => {
-      router.refresh();
       toast({ title: "Success! Request has been deleted." });
       closeDialog();
     },

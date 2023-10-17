@@ -1,5 +1,8 @@
 "use client";
+
+import { trpcClient } from "@/app/_trpc/client";
 import { Button } from "@/components/ui/button";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -9,23 +12,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-
-import { trpcClient } from "@/app/_trpc/client";
-import { closeDialog } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { editDepartmentFormSchema } from "@/lib/zod-schemas";
-import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useDepartmentContext } from "./department-provider";
 
 const EditDepartmentForm = () => {
-  const router = useRouter();
   const updateDepartmentMutation =
     trpcClient.departments.updateDepartment.useMutation({
       onSuccess: () => {
-        router.refresh();
         toast({ title: "Success! Department has been updated." });
         closeDialog();
       },

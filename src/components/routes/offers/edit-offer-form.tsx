@@ -1,5 +1,8 @@
 "use client";
+
+import { trpcClient } from "@/app/_trpc/client";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Command,
   CommandEmpty,
@@ -7,6 +10,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -21,18 +25,13 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
-
-import { trpcClient } from "@/app/_trpc/client";
-import { Calendar } from "@/components/ui/calendar";
-import { closeDialog } from "@/components/ui/dialog";
 import { toast } from "@/components/ui/use-toast";
 import { cn, getProspectNames } from "@/lib/lib";
 import { editOfferFormSchema } from "@/lib/zod-schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Employee, Prospect } from "@prisma/client";
 import { format } from "date-fns";
-import { useRouter } from "next/navigation";
+import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useOfferContext } from "./offer-provider";
@@ -43,10 +42,8 @@ type EditOfferFormProps = {
 };
 
 const EditOfferForm = ({ employee, prospects }: EditOfferFormProps) => {
-  const router = useRouter();
   const updateOfferMutation = trpcClient.offers.updateOffer.useMutation({
     onSuccess: () => {
-      router.refresh();
       toast({ title: "Success! Offer has been updated." });
       closeDialog();
     },

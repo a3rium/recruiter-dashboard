@@ -1,4 +1,7 @@
 "use client";
+
+import { trpcClient } from "@/app/_trpc/client";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -8,6 +11,7 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { closeDialog } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -21,25 +25,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
-import { Check, CheckIcon, ChevronsUpDown, PlusCircleIcon } from "lucide-react";
-
-import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-
-import { trpcClient } from "@/app/_trpc/client";
-import { Badge } from "@/components/ui/badge";
-import { closeDialog } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { cn, getProspectNames } from "@/lib/lib";
 import { editInterviewFormSchema } from "@/lib/zod-schemas";
 import { AppRouter } from "@/server";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { inferRouterOutputs } from "@trpc/server";
-import { useRouter } from "next/navigation";
+import { format } from "date-fns";
+import {
+  CalendarIcon,
+  Check,
+  CheckIcon,
+  ChevronsUpDown,
+  PlusCircleIcon,
+} from "lucide-react";
+import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useInterviewContext } from "./interview-provider";
 
@@ -56,11 +58,9 @@ const EditInterviewForm = ({
   prospects,
   employees,
 }: EditInterviewFormProps) => {
-  const router = useRouter();
   const updateInterviewMutation =
     trpcClient.interviews.updateInterview.useMutation({
       onSuccess: () => {
-        router.refresh();
         toast({ title: "Success! Interview has been updated." });
         closeDialog();
       },
