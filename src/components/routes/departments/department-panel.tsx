@@ -15,10 +15,7 @@ const DepartmentPanel = async () => {
       <AddDepartmentDialog />
       <DepartmentProvider>
         <SelectedDialogProvider>
-          <DepartmentDataTable
-            columns={departmentColumns}
-            data={data.departmentTableData}
-          />
+          <DepartmentDataTable columns={departmentColumns} data={data} />
           <EditDepartmentDialog />
           <DeleteDepartmentDialog />
         </SelectedDialogProvider>

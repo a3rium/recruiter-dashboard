@@ -14,10 +14,7 @@ async function InterviewPage() {
       <AddInterviewDialog />
       <InterviewProvider>
         <SelectedDialogProvider>
-          <InterviewDataTable
-            columns={interviewColumns}
-            data={data.interviewTableData}
-          />
+          <InterviewDataTable columns={interviewColumns} data={data} />
           <EditInterviewDialog />
           <DeleteInterviewDialog />
         </SelectedDialogProvider>

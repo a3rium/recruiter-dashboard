@@ -1,5 +1,6 @@
 "use client";
 
+import { trpcClient } from "@/app/_trpc/client";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -9,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AppRouter } from "@/server";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -19,23 +21,33 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { inferRouterOutputs } from "@trpc/server";
 import * as React from "react";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+interface DataTableProps {
+  columns: ColumnDef<
+    Awaited<
+      RouterOutput["customers"]["getCustomerTableData"]["customerTableData"][0]
+    >
+  >[];
+  data: Awaited<RouterOutput["customers"]["getCustomerTableData"]>;
 }
 
-export function CustomerDataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function CustomerDataTable({ columns, data }: DataTableProps) {
+  const currentData = trpcClient.customers.getCustomerTableData.useQuery(
+    undefined,
+    {
+      initialData: data,
+    },
+  );
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const table = useReactTable({
-    data,
+    data: currentData.data?.customerTableData ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,

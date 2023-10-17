@@ -22,23 +22,35 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { trpcClient } from "@/app/_trpc/client";
 import { Input } from "@/components/ui/input";
+import { AppRouter } from "@/server";
+import { inferRouterOutputs } from "@trpc/server";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+interface DataTableProps {
+  columns: ColumnDef<
+    Awaited<
+      RouterOutput["requests"]["getRequestTableData"]["requestTableData"][0]
+    >
+  >[];
+  data: Awaited<RouterOutput["requests"]["getRequestTableData"]>;
 }
 
-export function RequestDataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function RequestDataTable({ columns, data }: DataTableProps) {
+  const currentData = trpcClient.requests.getRequestTableData.useQuery(
+    undefined,
+    {
+      initialData: data,
+    },
+  );
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const table = useReactTable({
-    data,
+    data: currentData.data?.requestTableData ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,

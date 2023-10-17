@@ -15,10 +15,7 @@ async function RequestPage() {
       <AddRequestDialog />
       <RequestProvider>
         <SelectedDialogProvider>
-          <RequestDataTable
-            columns={requestColumns}
-            data={data.requestTableData}
-          />
+          <RequestDataTable columns={requestColumns} data={data} />
           <EditRequestDialog />
           <DeleteRequestDialog />
         </SelectedDialogProvider>

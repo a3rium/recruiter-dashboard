@@ -13,6 +13,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import { trpcClient } from "@/app/_trpc/client";
 import {
   Table,
   TableBody,
@@ -21,22 +22,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { AppRouter } from "@/server";
+import { inferRouterOutputs } from "@trpc/server";
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+type RouterOutput = inferRouterOutputs<AppRouter>;
+
+interface DataTableProps {
+  columns: ColumnDef<
+    Awaited<RouterOutput["offers"]["getOfferTableData"]["offerTableData"][0]>
+  >[];
+  data: Awaited<RouterOutput["offers"]["getOfferTableData"]>;
 }
 
-export function OfferDataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function OfferDataTable({ columns, data }: DataTableProps) {
+  const currentData = trpcClient.offers.getOfferTableData.useQuery(undefined, {
+    initialData: data,
+  });
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const table = useReactTable({
-    data,
+    data: currentData.data?.offerTableData ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,

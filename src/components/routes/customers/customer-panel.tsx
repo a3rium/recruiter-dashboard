@@ -15,10 +15,7 @@ const CustomerPanel = async () => {
       <AddCustomerDialog />
       <CustomerProvider>
         <SelectedDialogProvider>
-          <CustomerDataTable
-            columns={customerColumns}
-            data={data.customerTableData}
-          />
+          <CustomerDataTable columns={customerColumns} data={data} />
           <EditCustomerDialog />
           <DeleteCustomerDialog />
         </SelectedDialogProvider>

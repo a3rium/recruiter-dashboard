@@ -1,7 +1,16 @@
 "use client";
 
-import * as React from "react";
-
+import { trpcClient } from "@/app/_trpc/client";
+import { Input } from "@/components/ui/input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { AppRouter } from "@/server";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,33 +21,34 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { inferRouterOutputs } from "@trpc/server";
+import * as React from "react";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+type RouterOutput = inferRouterOutputs<AppRouter>;
 
-import { Input } from "@/components/ui/input";
-
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+interface DataTableProps {
+  columns: ColumnDef<
+    Awaited<
+      RouterOutput["prospects"]["getProspectTableData"]["prospectTableData"][0]
+    >
+  >[];
+  data: Awaited<RouterOutput["prospects"]["getProspectTableData"]>;
 }
 
-export function ProspectDataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function ProspectDataTable({ columns, data }: DataTableProps) {
+  const currentData = trpcClient.prospects.getProspectTableData.useQuery(
+    undefined,
+    {
+      initialData: data,
+    },
+  );
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const table = useReactTable({
-    data,
+    data: currentData.data?.prospectTableData ?? [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,

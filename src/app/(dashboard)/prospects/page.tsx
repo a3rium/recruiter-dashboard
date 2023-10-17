@@ -15,10 +15,7 @@ async function ProspectsPage() {
       <AddProspectDialog />
       <ProspectProvider>
         <SelectedDialogProvider>
-          <ProspectDataTable
-            columns={prospectColumns}
-            data={data.prospectTableData}
-          />
+          <ProspectDataTable columns={prospectColumns} data={data} />
           <EditProspectDialog />
           <DeleteProspectDialog />
         </SelectedDialogProvider>

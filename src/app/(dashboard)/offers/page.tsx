@@ -14,7 +14,7 @@ async function ProspectsPage() {
       <AddOfferDialog />
       <OfferProvider>
         <SelectedDialogProvider>
-          <OfferDataTable columns={offerColumns} data={data.offerTableData} />
+          <OfferDataTable columns={offerColumns} data={data} />
           <EditOfferDialog />
           <DeleteOfferDialog />
         </SelectedDialogProvider>
